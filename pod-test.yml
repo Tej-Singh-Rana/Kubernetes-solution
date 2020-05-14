@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+	name: pod-one
+	labels:
+	 my-label: test
+
+spec:
+ containers:
+  - image: busybox
+    name: busybox-test
+    args:
+    - "sh"
+    - "-c"
+    - "hostname > /tmp/hostname && sleep 1d"
