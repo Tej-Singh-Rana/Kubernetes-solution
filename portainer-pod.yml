@@ -1,0 +1,32 @@
+kind: Service
+apiVersion: v1
+metadata:
+    name: my-svc
+spec:
+   type: NodePort
+   ports:
+   - port: 9000
+     targetPort: 9000
+   selector:
+      name: portainer
+---
+kind: Pod
+apiVersion: v1
+metadata:
+   name: mypod
+   labels:
+     name: portainer
+spec:
+  containers:
+    - image: portainer/portainer
+      name: portainer
+      ports:
+      - containerPort: 9000
+      volumeMounts:
+      - mountPath: /var/run/docker.sock
+        name: docker
+  volumes:
+    - name: docker
+      hostPath:
+        path: /var/run/docker.sock
+        type: Socket
