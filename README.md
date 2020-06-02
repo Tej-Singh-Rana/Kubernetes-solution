@@ -46,7 +46,7 @@ $ vi kube-apiserver.yaml
 > Assigning label to node01 
 $ kubectl label node node01 -l="server=first"
 
-> We have to create namespace and add anotations to find particular label in the cluster.
+> We have to create namespace and add "annotations" column to find particular label in the cluster.
 
 $ kubectl create namespace test
 
