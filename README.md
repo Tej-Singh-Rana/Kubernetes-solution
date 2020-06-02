@@ -31,3 +31,31 @@ kubectl label pod <pod-name> key1=value1
 
 kubectl delete pod <pod-name> --force --grace-period=0
 ```
+# PodNodeSelector
+
+- To assign into a particular node, We will use PodNodeSelector object.
+
+```
+$ cd /etc/kubernetes/manifests
+
+$ vi kube-apiserver.yaml
+
+> Added PodNodeSelector into  --enable-admission-plugins=PodNodeSelector
+> After this kube-apiserver automatically restarted.
+
+> Assigning label to node01 
+$ kubectl label node node01 -l="server=first"
+
+> We have to create namespace and add anotations to find particular label in the cluster.
+
+$ kubectl create namespace test
+
+$ kubectl edit namespace test
+> Add following parameters in metadata section.
+
+> annotations:
+    scheduler.alpha.kubernetes.io/node-selector: "server=first"
+
+> After this create a deployment or pod in that newly created namespace. Pod will be schedule after matching labels in particular node.
+
+
